@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VibEcho</title>
+
+<!-- Instagram-like font -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+/* Your existing styles here */
+body {
+  font-family: Arial, sans-serif;
+  background: #fafafa;
+  margin: 0;
+  padding: 0;
+  color: #262626;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background: linear-gradient(90deg, #f58529, #dd2a7b, #8134af, #515bd4);
+  color: white;
+}
+
+header h1 {
+  margin: 0;
+  padding-left: 10px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 36px;
+  color: white;
+}
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.upload-box {
+  margin-bottom: 24px;
+}
+
+.upload-box input[type="file"] {
+  margin-top: 12px;
+}
+
+.story-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #dd2a7b;
+  margin: 0 auto 12px auto;
+}
+
+.story-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-preview img {
+  max-width: 100%;
+  margin-bottom: 12px;
+  border-radius: 10px;
+}
+
+.caption, .top-song, .more-songs {
+  margin: 16px 0;
+  font-size: 18px;
+}
+
+.top-song {
+  font-weight: bold;
+  color: #e1306c;
+}
+
+.more-songs li {
+  list-style: disc;
+  margin-left: 20px;
+  text-align: left;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #999;
+}
+
+audio {
+  margin-top: 8px;
+  width: 100%;
+  outline: none;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>VibEcho</h1>
+</header>
+
+<div class="container">
+  <form method="POST" enctype="multipart/form-data" class="upload-box">
+    <label for="image">📷 Upload an image (your vibe):</label><br>
+    <input type="file" name="image" required>
+    <br><br>
+    <button type="submit">Upload Image</button>
+  </form>
+
+  {% if uploaded %}
+    <div class="story-circle">
+      <img src="{{ image_path }}" alt="Uploaded Image">
+    </div>
+
+    <div class="image-preview">
+      <img src="{{ image_path }}" alt="Uploaded Image">
+    </div>
+
+    <div class="caption">
+      📄 <strong>Caption:</strong><br>
+      {{ caption }}
+    </div>
+
+    {% if top_song %}
+    <div class="top-song">
+      🎵 <strong>Top Song:</strong><br>
+      <span style="color: green;">{{ top_song.title }} – {{ top_song.artist }}</span>
+      {% if top_song.preview_url %}
+      <audio controls>
+        <source src="{{ top_song.preview_url }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      {% else %}
+      <p><em>No preview available.</em></p>
+      {% endif %}
+      <p><a href="{{ top_song.url }}" target="_blank" rel="noopener noreferrer">Open in Spotify</a></p>
+    </div>
+    {% endif %}
+
+    {% if more_songs %}
+    <div class="more-songs">
+      🎧 <strong>More Suggestions:</strong>
+      <ul>
+        {% for song in more_songs %}
+          <li>
+            {{ song.title }} – {{ song.artist }}
+            {% if song.preview_url %}
+            <br>
+            <audio controls>
+              <source src="{{ song.preview_url }}" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+            {% else %}
+            <br><em>No preview available.</em>
+            {% endif %}
+            <br><a href="{{ song.url }}" target="_blank" rel="noopener noreferrer">Open in Spotify</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  {% endif %}
+</div>
+
+<footer>
+  &copy; 2025 VibEcho. Inspired by vibes, powered by AI.
+</footer>
+</body>
+</html>

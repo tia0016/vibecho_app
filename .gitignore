@@ -1,0 +1,24 @@
+# 🔒 Do NOT upload secret keys
+.env
+
+# 🐍 Python cache & compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 📦 Virtual environments
+venv/
+env/
+
+# 🖥 OS / Editor junk
+.DS_Store
+Thumbs.db
+
+# 📄 Logs
+
+*.log
+.env
+__pycache__/
+*.pyc
+static/uploads/
