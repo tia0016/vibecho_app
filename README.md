@@ -37,8 +37,8 @@ SPOTIFY_CLIENT_ID=your-client-id
 SPOTIFY_CLIENT_SECRET=your-client-secret
 
 # ▶️ Run the App
-python vibecho_app.py
-eg Open http://127.0.0.1:5000/ in your browser.
+-python vibecho_app.py
+-eg Open http://127.0.0.1:5000/ in your browser.
 
 #  Project Structure
 ├── static/uploads/           # Uploaded images
